@@ -46,7 +46,7 @@ const FEATURED_PROJECTS: Project[] = [
     images: [
       '/Screenshot 2026-01-18 143905.png'
     ],
-    demoUrl: 'https://streamify.vercel.app',
+    demoUrl: 'https://stremify-project-rlai.vercel.app/',
     repoUrl: 'https://github.com/AK21ER/streamify',
     isGithub: false
   },
@@ -65,7 +65,7 @@ const FEATURED_PROJECTS: Project[] = [
       'Stripe API'
     ],
     images: ['/Screenshot 2026-01-18 144439.png'],
-    demoUrl: 'https://ecommerce-demo.vercel.app',
+    demoUrl: 'https://eccomerce-project-g7sl.vercel.app/',
     repoUrl: 'https://github.com/AK21ER/eccomerce-project',
     isGithub: false
   },
@@ -77,7 +77,7 @@ const FEATURED_PROJECTS: Project[] = [
      ,
       techStack: ['Next.js', 'Django', 'Sql', 'Open-ai' ],
     images: ['/Screenshot 2026-01-18 194852.png','/Screenshot 2026-01-18 194731.png' ],
-    demoUrl: 'https://chat-app-demo.vercel.app',
+    demoUrl: 'https://medicine-guider.vercel.app/',
     repoUrl: 'https://github.com/AK21ER/Medicine-guider',
     isGithub: false
   }
