@@ -49,10 +49,21 @@ export const About: React.FC = () => {
             Behind the Code
           </h2>
           <p className="text-gray-400 leading-relaxed text-lg">
-            I'm Rekik (AK21ER), a developer with 4 years of experience crafting robust digital solutions. 
-            Currently, I'm diving deep into <span className="text-accent font-medium">Natural Language Processing</span> systems 
+            I'm Rekik (AK21ER), a developer with 4 years of experience crafting robust digital solutions.
+            Currently, I'm diving deep into <span className="text-accent font-medium">Natural Language Processing</span> systems
             for Machine Learning and AI research at AAU, pushing the boundaries of how machines understand human interaction.
           </p>
+
+          <div className="pt-4">
+            <a
+              href="https://flowcv.com/resume/mkadmfttn4wn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent/10 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 transition-all duration-300 text-accent font-medium"
+            >
+              View Resume
+            </a>
+          </div>
 
           <div className="pt-4">
             <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-4">Tech</h3>
