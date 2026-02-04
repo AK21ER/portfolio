@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FC, TouchEvent, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Section } from './ui/Section';
@@ -185,7 +185,7 @@ const FEATURED_PROJECTS: Project[] = [
   }
 ];
 
-export const Projects: React.FC = () => {
+export const Projects: FC = () => {
   const [githubProjects, setGithubProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [rotation, setRotation] = useState(0);
@@ -277,12 +277,12 @@ export const Projects: React.FC = () => {
   }, [selectedProject]);
 
   // Touch Handlers for Swipe Rotation
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: TouchEvent) => {
     setTouchStart(e.touches[0].clientX);
     setIsHovering(true); // Pause auto-rotation
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
+  const handleTouchMove = (e: TouchEvent) => {
     if (touchStart === null) return;
 
     const currentTouch = e.touches[0].clientX;
@@ -298,7 +298,7 @@ export const Projects: React.FC = () => {
     setIsHovering(false); // Resume auto-rotation
   };
 
-  const nextImage = (e?: React.MouseEvent) => {
+  const nextImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (!selectedProject) return;
     setCurrentImageIndex((prev) =>
@@ -306,7 +306,7 @@ export const Projects: React.FC = () => {
     );
   };
 
-  const prevImage = (e?: React.MouseEvent) => {
+  const prevImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (!selectedProject) return;
     setCurrentImageIndex((prev) =>
@@ -314,33 +314,7 @@ export const Projects: React.FC = () => {
     );
   };
 
-  // useEffect(() => {
-  //   const fetchGithub = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         'https://api.github.com/users/AK21ER/repos?sort=updated&per_page=3'
-  //       );
-  //       if (!response.ok) return;
 
-  //       const data = await response.json();
-  //       const mapped: Project[] = data.map((repo: any) => ({
-  //         id: repo.id.toString(),
-  //         title: repo.name,
-  //         description: repo.description || 'No description available',
-  //         techStack: [repo.language || 'Code'],
-  //         images: [`https://picsum.photos/seed/${repo.name}/800/600`],
-  //         repoUrl: repo.html_url,
-  //         isGithub: true
-  //       }));
-
-  //       setGithubProjects(mapped);
-  //     } catch (error) {
-  //       console.error('Failed to fetch GitHub repos', error);
-  //     }
-  //   };
-
-  //   fetchGithub();
-  // }, []);
 
   // Helper for 3D positioning
   const getProjectStyle = (index: number, total: number) => {

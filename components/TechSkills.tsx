@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { FC, ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import { Section } from './ui/Section';
 import {
   Code,
@@ -7,9 +7,6 @@ import {
   Terminal,
   GitBranch,
   Wrench,
-  CaretDown,
-  CaretUp,
-  
 } from 'phosphor-react';
 
 interface Skill {
@@ -20,7 +17,7 @@ interface Skill {
 
 interface SkillCategory {
   title: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   skills: Skill[];
 }
 
@@ -35,9 +32,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'TypeScript', level: 'Intermediate', description: 'Type-safe JavaScript development' },
       { name: 'Tailwind CSS', level: 'Advanced', description: 'Utility-first CSS framework' },
       { name: 'Framer Motion', level: 'Intermediate', description: 'Animation library for React' },
-      { name: 'redux', level: 'Intermediate', description: 'Animation library for React' },
-
-
+      { name: 'Redux', level: 'Intermediate', description: 'State management for complex React applications' },
     ]
   },
   {
@@ -50,10 +45,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'Django', level: 'Intermediate', description: 'High-level Python web framework' },
       { name: 'PostgreSQL', level: 'Advanced', description: 'Advanced open source relational database' },
       { name: 'MongoDB', level: 'Advanced', description: 'NoSQL database for modern applications' },
-      { name: 'redis', level: 'Advanced', description: 'In-memory data structure store, used as a database, cache, and message broker' }    
-        
-        
-
+      { name: 'Redis', level: 'Advanced', description: 'In-memory data structure store, used as a database, cache, and message broker' }
     ]
   },
   {
@@ -64,7 +56,6 @@ const skillCategories: SkillCategory[] = [
       { name: 'Kubernetes', level: 'Beginner', description: 'Container orchestration system' },
       { name: 'AWS', level: 'Intermediate', description: 'Cloud computing platform' },
       { name: 'CI/CD', level: 'Intermediate', description: 'Continuous integration and deployment' },
-      
     ]
   },
   {
@@ -88,13 +79,7 @@ const skillCategories: SkillCategory[] = [
   }
 ];
 
-export const TechSkills: React.FC = () => {
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-
-  const toggleCategory = (categoryTitle: string) => {
-    setExpandedCategory(expandedCategory === categoryTitle ? null : categoryTitle);
-  };
-
+export const TechSkills: FC = () => {
   const getLevelColor = (level: string) => {
     switch (level) {
       case 'Advanced': return 'text-green-400';
@@ -113,7 +98,6 @@ export const TechSkills: React.FC = () => {
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             A comprehensive overview of my technical expertise across different domains.
-            Click on each category to explore my skills in detail.
           </p>
         </div>
 
@@ -125,57 +109,37 @@ export const TechSkills: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="glass-card p-6 rounded-lg border border-white/5 hover:border-accent/30 transition-all duration-300"
+              className="glass-card p-6 rounded-2xl border border-white/5 hover:border-accent/40 hover:shadow-accent/5 transition-all duration-300 flex flex-col gap-6 group"
             >
-              <button
-                onClick={() => toggleCategory(category.title)}
-                className="w-full flex items-center justify-between mb-4 group"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-accent group-hover:scale-110 transition-transform">
-                    {category.icon}
-                  </span>
-                  <h3 className="text-xl font-semibold text-white group-hover:text-accent transition-colors">
-                    {category.title}
-                  </h3>
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-accent/10 rounded-xl text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-black transition-all duration-300">
+                  {category.icon}
                 </div>
-                <motion.div
-                  animate={{ rotate: expandedCategory === category.title ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <CaretDown size={20} className="text-gray-400" />
-                </motion.div>
-              </button>
+                <h3 className="text-2xl font-bold text-white group-hover:text-accent transition-colors">
+                  {category.title}
+                </h3>
+              </div>
 
-              <AnimatePresence>
-                {expandedCategory === category.title && (
+              <div className="space-y-4">
+                {category.skills.map((skill, skillIndex) => (
                   <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-3 overflow-hidden"
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
+                    viewport={{ once: true }}
+                    className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-accent/20 hover:bg-white/[0.08] transition-all duration-300"
                   >
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skill.name}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: skillIndex * 0.1 }}
-                        className="p-3 rounded-md bg-gray-800/50 border border-white/5 hover:border-accent/20 transition-colors"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-medium text-white">{skill.name}</span>
-                          <span className={`text-sm font-medium ${getLevelColor(skill.level)}`}>
-                            {skill.level}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-400">{skill.description}</p>
-                      </motion.div>
-                    ))}
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="font-bold text-white text-base">{skill.name}</span>
+                      <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-md bg-white/5 border border-white/10 ${getLevelColor(skill.level)}`}>
+                        {skill.level}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-400 leading-relaxed">{skill.description}</p>
                   </motion.div>
-                )}
-              </AnimatePresence>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
