@@ -30,10 +30,14 @@ const skillCategories: SkillCategory[] = [
     icon: <Code size={24} />,
     skills: [
       { name: 'React', level: 'Advanced', description: 'Component-based UI development with hooks and context' },
-      { name: 'Next.js', level: 'Advanced', description: 'Full-stack React framework with SSR and API routes' },
+      { name: 'Next.js', level: 'Intermediate', description: 'Full-stack React framework with SSR and API routes' },
+      { name: 'JavaScript', level: 'Advanced', description: 'Versatile programming language for web development' },
       { name: 'TypeScript', level: 'Intermediate', description: 'Type-safe JavaScript development' },
       { name: 'Tailwind CSS', level: 'Advanced', description: 'Utility-first CSS framework' },
-      { name: 'Framer Motion', level: 'Intermediate', description: 'Animation library for React' }
+      { name: 'Framer Motion', level: 'Intermediate', description: 'Animation library for React' },
+      { name: 'redux', level: 'Intermediate', description: 'Animation library for React' },
+
+
     ]
   },
   {
@@ -44,17 +48,23 @@ const skillCategories: SkillCategory[] = [
       { name: 'NestJS', level: 'Advanced', description: 'Progressive Node.js framework' },
       { name: 'Express', level: 'Advanced', description: 'Minimalist web framework for Node.js' },
       { name: 'Django', level: 'Intermediate', description: 'High-level Python web framework' },
-      { name: 'PostgreSQL', level: 'Intermediate', description: 'Advanced open source relational database' }
+      { name: 'PostgreSQL', level: 'Advanced', description: 'Advanced open source relational database' },
+      { name: 'MongoDB', level: 'Advanced', description: 'NoSQL database for modern applications' },
+      { name: 'redis', level: 'Advanced', description: 'In-memory data structure store, used as a database, cache, and message broker' }    
+        
+        
+
     ]
   },
   {
     title: 'DevOps',
     icon: <Terminal size={24} />,
     skills: [
-      { name: 'Docker', level: 'Intermediate', description: 'Containerization platform' },
+      { name: 'Docker', level: 'Advanced', description: 'Containerization platform' },
       { name: 'Kubernetes', level: 'Beginner', description: 'Container orchestration system' },
       { name: 'AWS', level: 'Intermediate', description: 'Cloud computing platform' },
-      { name: 'CI/CD', level: 'Intermediate', description: 'Continuous integration and deployment' }
+      { name: 'CI/CD', level: 'Intermediate', description: 'Continuous integration and deployment' },
+      
     ]
   },
   {
@@ -73,7 +83,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'VS Code', level: 'Advanced', description: 'Code editor with extensive extensions' },
       { name: 'Postman', level: 'Advanced', description: 'API development and testing tool' },
       { name: 'Figma', level: 'Intermediate', description: 'Collaborative interface design tool' },
-      { name: 'Vite', level: 'Intermediate', description: 'Fast build tool for modern web projects' }
+      { name: 'Vite', level: 'Advanced', description: 'Fast build tool for modern web projects' }
     ]
   }
 ];
