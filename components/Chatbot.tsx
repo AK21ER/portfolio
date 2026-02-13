@@ -11,54 +11,61 @@ interface Message {
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, text: "Hi! I'm Rekik's AI assistant. Ask me anything about Rekik", isUser: false }
+    { id: 1, text: "Hi! I'm Rekik's AI assistant. Ask me anything about my projects like ELDCP, skills, or experience!", isUser: false }
   ]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   const getResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
 
+    // Greeting
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi ') || lowerMessage.trim() === 'hi') {
+      return "Hello there! How can I assist you today? You can ask about my major project 'ELDCP' or other works like 'Medicine Guider'.";
+    }
+
+    // Projects - General
+    if (lowerMessage.includes('project') || lowerMessage.includes('work') || lowerMessage.includes('portfolio')) {
+      return "I've worked on scalable systems like ELDCP (Ethiopian Language Data Collection Platform), Streamify, and Medicine Guider. ELDCP is particularly interesting—would you like to know its purpose or tech stack?";
+    }
+
+    // Specific Project: ELDCP
+    if (lowerMessage.includes('eldcp') || lowerMessage.includes('collection') || lowerMessage.includes('language')) {
+      return "ELDCP is a massive, university-focused platform I built to collect and validate high-quality voice datasets for training AI models. It features multi-phase validation, automated payments, and a secure contributor system. Tech stack: Next.js, Node.js, Prisma, PostgreSQL, Docker, and GitHub Actions.";
+    }
+
+    // Specific Project: Medicine Guider
+    if (lowerMessage.includes('medicine')) {
+      return "Medicine Guider is an AI-powered app that interprets medicine details from photos or names. It helps users understand usage and safety instructions clearly. Built with Next.js, Django, and OpenAI.";
+    }
+
+    // Specific Project: Streamify
+    if (lowerMessage.includes('streamify')) {
+      return "Streamify is a campus communication tool for real-time video calls and chat, helping students collaborate remotely. Tech stack: Vite, Node.js, MongoDB, and WebRTC.";
+    }
+
+    // Experience
     if (lowerMessage.includes('experience') || lowerMessage.includes('years')) {
-      return "I have 4 years of experience crafting robust digital solutions.";
+      return "I have 4 years of experience crafting robust digital solutions, evolving from full-stack web development to AI integration.";
     }
 
-    if (lowerMessage.includes('skills') || lowerMessage.includes('tech')) {
-      return "My tech skills includes NestJS, Express, Node.js, React, Next.js, Docker, Django, Tailwind, Shadcn UI, and React Native.";
+    // Skills
+    if (lowerMessage.includes('skills') || lowerMessage.includes('tech stack')) {
+      return "My core stack includes React, Next.js, Node.js, NestJS, and Python (Django). I'm also proficient in Docker, PostgreSQL, and currently exploring NLP and LLMs.";
     }
 
-    if (lowerMessage.includes('current') || lowerMessage.includes('work') || lowerMessage.includes('nlp') || lowerMessage.includes('ai')) {
-      return "Currently, I'm diving deep into Natural Language Processing systems for Machine Learning and AI research at AAU, pushing the boundaries of how machines understand human interaction.";
+    // Contact
+    if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('touch')) {
+      return "You can reach me via the contact form on this site, or check out my GitHub profile linked in the navbar!";
     }
 
-    if (lowerMessage.includes('name') || lowerMessage.includes('who')) {
-      return "I'm Rekik, also known as AK21ER, a developer passionate about creating innovative digital solutions.";
+    // Current Status / Learning
+    if (lowerMessage.includes('current') || lowerMessage.includes('doing now') || lowerMessage.includes('nlp')) {
+      return "Currently, I'm diving deep into Natural Language Processing (NLP) at AAU, researching how to make AI systems better understand local languages.";
     }
 
-    if (lowerMessage.includes('background') || lowerMessage.includes('about')) {
-      return "I'm a developer with 4 years of experience, currently focusing on NLP and AI research at AAU.";
-    }
-
-    if (lowerMessage.includes('frontend') || lowerMessage.includes('front-end')) {
-      return "My frontend skills include React (Advanced), Next.js (Advanced), TypeScript (Intermediate), Tailwind CSS (Advanced), and Framer Motion (Intermediate).";
-    }
-
-    if (lowerMessage.includes('backend') || lowerMessage.includes('back-end')) {
-      return "My backend skills include Node.js (Advanced), NestJS (Advanced), Express (Advanced), Django (Intermediate), and PostgreSQL (Intermediate).";
-    }
-
-    if (lowerMessage.includes('devops') || lowerMessage.includes('dev-ops')) {
-      return "My DevOps skills include Docker (Intermediate), Kubernetes (Beginner), AWS (Intermediate), and CI/CD (Intermediate).";
-    }
-
-    if (lowerMessage.includes('version control') || lowerMessage.includes('git')) {
-      return "My version control skills include Git (Advanced), GitHub (Advanced), and GitLab (Intermediate).";
-    }
-
-    if (lowerMessage.includes('tools')) {
-      return "My tool skills include VS Code (Advanced), Postman (Advanced), Figma (Intermediate), and Vite (Intermediate).";
-    }
-
-    return "That's an interesting question! Feel free to ask about my experience, skills, or current work. You can also ask about specific skill categories like frontend, backend, devops, version control, or tools.";
+    // Default
+    return "That's a great question! I'm still learning, but I can tell you about my 'projects' (especially ELDCP), 'skills', 'experience', or how to 'contact' me.";
   };
 
   const handleSend = () => {
@@ -72,8 +79,9 @@ const Chatbot: React.FC = () => {
 
     setMessages(prev => [...prev, userMessage]);
     setInput('');
+    setIsTyping(true);
 
-    // Simulate AI response
+    // Simulate AI response with variable delay for realism
     setTimeout(() => {
       const aiResponse: Message = {
         id: messages.length + 2,
@@ -81,7 +89,8 @@ const Chatbot: React.FC = () => {
         isUser: false
       };
       setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
+      setIsTyping(false);
+    }, 1500);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -132,16 +141,28 @@ const Chatbot: React.FC = () => {
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[70%] p-3 rounded-lg ${
-                      message.isUser
-                        ? 'bg-accent text-blue-900'
-                        : 'bg-gray-800 text-blue-200'
-                    }`}
+                    className={`max-w-[80%] p-3 rounded-2xl ${message.isUser
+                      ? 'bg-accent text-blue-900 rounded-tr-none'
+                      : 'bg-gray-800 text-gray-200 rounded-tl-none border border-white/5'
+                      }`}
                   >
                     {message.text}
                   </div>
                 </motion.div>
               ))}
+              {isTyping && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex justify-start"
+                >
+                  <div className="bg-gray-800 p-3 rounded-2xl rounded-tl-none border border-white/5 flex items-center gap-1">
+                    <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0s' }} />
+                    <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                    <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* Input */}

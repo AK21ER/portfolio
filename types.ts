@@ -7,6 +7,8 @@ export interface Project {
   demoUrl?: string;
   repoUrl?: string;
   isGithub?: boolean;
+  detailedDescription?: string;
+  category?: string;
 }
 
 export interface Testimonial {
