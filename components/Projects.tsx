@@ -136,52 +136,51 @@ const FEATURED_PROJECTS: Project[] = [
     category: 'Telegram Bot'
   },
   {
-    id: 'auth-shield',
-    title: 'Auth-Shield Gateway',
-    description: 'A robust, high-performance authentication microservice supporting OAuth2.0, multi-tenant RBAC, and distributed session management.',
-    techStack: ['Node.js', 'Redis', 'PostgreSQL', 'Docker', 'OpenID Connect'],
-    images: ['https://picsum.photos/seed/backend/800/600'],
+    id: 'payment-logic',
+    title: 'Payment Processing Logic',
+    description: 'A robust backend system for handling complex payment workflows, order processing, and transaction lifecycle management.',
+    techStack: ['Next.js', 'TypeScript', 'Node.js', 'Prisma', 'PostgreSQL', 'Serverless'],
+    images: ['https://picsum.photos/seed/payment/800/600'],
     demoUrl: '',
-    repoUrl: '',
-    isGithub: false,
+    repoUrl: 'https://github.com/AK21ER/payment-order-processing-backend-logic',
+    isGithub: true,
     detailedDescription: `
-      Auth-Shield is a production-ready authentication gateway architected for distributed environments. It provides a centralized security layer for microservices, handling everything from JWT signing and rotation to multi-factor authentication (MFA) flows. 
-      The system is built on an asynchronous Node.js core, utilizing Redis as a high-speed caching layer for session and rate-limiting data. It implements the standard OAuth2.0 and OpenID Connect protocols, allowing it to act as an Identity Provider (IdP) for various client applications. 
-      Advanced features include multi-tenant RBAC (Role-Based Access Control) with granular permissions, comprehensive audit logging via PostgreSQL, and seamless integration with third-party providers like Google and GitHub. The service is fully containerized and designed to scale horizontally behind a load balancer.
+      This project focuses on the core backend architecture for a scalable payment and order processing system. Built using a serverless approach with Next.js and Prisma, it handles the intricate logic of transaction states, idempotent payment processing, and secure order lifecycle management. 
+      The system is designed to be highly resilient, implementing sophisticated error handling and retry mechanisms to ensure data consistency across multiple services. It demonstrates proficiency in architecting financial logic, managing relational database schemas with Prisma, and building type-safe APIs in a modern TypeScript environment.
     `,
     category: 'Backend'
   },
   {
-    id: 'sales-sync',
-    title: 'Sales-Sync Automation',
-    description: 'A multi-platform automation workflow that synchronizes CRM leads, handles scoring, and automates marketing triggers.',
-    techStack: ['n8n', 'Zapier', 'Webhooks', 'REST API', 'JavaScript'],
-    images: ['https://picsum.photos/seed/automation/800/600'],
+    id: 'share-it',
+    title: 'Share It',
+    description: 'A modern, dynamic social sharing platform designed for seamless content distribution and community interaction.',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Prisma', 'Tailwind CSS', 'Vercel'],
+    images: ['https://picsum.photos/seed/shareit/800/600'],
     demoUrl: '',
-    repoUrl: '',
-    isGithub: false,
-    detailedDescription: `
-      Sales-Sync is a complex automation ecosystem built primarily using n8n to streamline the lead conversion pipeline. The workflow connects disparate systems—including Salesforce, HubSpot, and Slack—ensuring that data remains consistent across the entire organization without manual entry. 
-      Using custom JavaScript nodes within n8n, the system performs real-time lead scoring based on engagement metrics from external APIs. It automatically routes high-value leads to specific sales representatives in Slack while triggering personalized email sequences via Mailchimp. 
-      The architecture emphasizes error handling and retries, utilizing webhook queues to ensure no data is lost during API downtime. This project demonstrates the power of low-code/no-code platforms when extended with custom logic to solve complex enterprise business logic.
-    `,
-    category: 'n8n'
-  },
-  {
-    id: 'crypto-bot',
-    title: 'Crypto-Alert Pro',
-    description: 'A high-speed Telegram bot providing real-time market insights, personalized price alerts, and automated technical analysis.',
-    techStack: ['Python', 'Telegraf', 'Binance API', 'WebSockets', 'AWS Lambda'],
-    images: ['https://picsum.photos/seed/crypto/800/600'],
-    demoUrl: '',
-    repoUrl: '',
+    repoUrl: 'https://github.com/AK21ER/share_it',
     isGithub: true,
     detailedDescription: `
-      Crypto-Alert Pro is an advanced Telegram bot designed for active traders who need sub-second notifications on market movements. Unlike standard price bots, it utilizes persistent WebSockets to monitor price feeds from multiple exchanges simultaneously. 
-      The bot features a custom alerting engine where users can set conditions based on technical indicators like RSI, MACD, and Bollinger Bands. When a condition is met, an instant notification is dispatched via the Telegram Bot API. 
-      The backend is serverless, running on AWS Lambda for cost-effectiveness and scalability. It includes a portfolio tracking feature that allows users to monitor their holdings in real-time. This project highlights proficiency in real-time data streaming, serverless architecture, and financial technology integration.
+      Share It is a full-stack social application bootstrapped with the latest Next.js features. It provides a platform for users to share content, engage with their community, and enjoy a high-performance, responsive user experience. 
+      The project leverages Prisma for efficient database management and type-safety, while Tailwind CSS ensures a sleek, modern aesthetic throughout the application. 
+      Key technical highlights include the use of App Router for optimized routing, server actions for efficient data mutations, and a highly responsive design that works flawlessly across all devices. This repository demonstrates expertise in the modern Next.js ecosystem and building interactive, user-focused web applications.
     `,
-    category: 'Telegram Bot'
+    category: 'Fullstack'
+  },
+  {
+    id: 'django-ecommerce',
+    title: 'Django E-commerce',
+    description: 'A full-featured e-commerce marketplace with category-based browsing, star ratings, and advanced user order management.',
+    techStack: ['Python', 'Django', 'React', 'Knox', 'Tailwind CSS', 'PostgreSQL'],
+    images: ['https://picsum.photos/seed/market/800/600'],
+    demoUrl: 'https://django-ecommerce-woad.vercel.app/',
+    repoUrl: 'https://github.com/AK21ER/Django-ecommerce',
+    isGithub: true,
+    detailedDescription: `
+      This Django-based E-commerce project is a complete marketplace solution that bridges the gap between a powerful Python backend and a dynamic React frontend. It features a robust storefront where users can browse products by category, view detailed descriptions, and interact with a star-based rating and review system.
+      The application implements secure Knox token authentication for user registration and login, ensuring a high level of security for user data and transactions. 
+      From a technical standpoint, it showcases the integration of Django REST Framework (DRF) with a modern frontend architecture, managing everything from user profiles and shopping carts to full order history tracking. The UI is built with Tailwind CSS for a clean, responsive, and professional look.
+    `,
+    category: 'Fullstack'
   }
 ];
 
@@ -238,11 +237,14 @@ export const Projects: FC = () => {
   }, [selectedProject, isPaused]);
 
   const allProjects = [...FEATURED_PROJECTS, ...githubProjects];
-  const filteredProjects = allProjects.filter(project =>
-    activeCategory === 'All' || project.category === activeCategory
-  );
+  const filteredProjects = allProjects.filter(project => {
+    if (activeCategory === 'All') return true;
+    if (activeCategory === 'Frontend') return project.category === 'Frontend' || project.category === 'Fullstack';
+    if (activeCategory === 'Backend') return project.category === 'Backend' || project.category === 'Fullstack';
+    return project.category === activeCategory;
+  });
 
-  const categories = ['All', 'Frontend', 'Backend', 'Fullstack', 'Telegram Bot', 'n8n'];
+  const categories = ['All', 'Frontend', 'Backend', 'Fullstack', 'Telegram Bot'];
 
   // Global Keyboard Navigation
   useEffect(() => {
